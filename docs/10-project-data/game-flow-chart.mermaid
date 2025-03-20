@@ -1,0 +1,46 @@
+flowchart TD
+    Start[開始遊戲] --> PlayerInfo[輸入名稱/選擇外觀]
+    PlayerInfo --> Lobby[多人遊戲大廳]
+    
+    Lobby -->|單人模式| Tutorial[新手教學區域]
+    Lobby -->|加入他人| JoinGame[加入現有遊戲]
+    
+    Tutorial --> MainHub[主城/中心區域]
+    JoinGame --> MainHub
+    
+    MainHub --> Quest1[主線任務1]
+    MainHub --> SideQuest[支線任務]
+    MainHub --> NPCInteraction[NPC互動]
+    MainHub --> PlayerInteract[與其他玩家互動]
+    
+    Quest1 --> Decision{關鍵決策點}
+    Decision -->|選擇A| PathA[路徑A]
+    Decision -->|選擇B| PathB[路徑B]
+    
+    PathA --> Consequence1[結果1]
+    PathB --> Consequence2[結果2]
+    
+    Consequence1 -.->|動態加載| NextArea1[新區域1]
+    Consequence2 -.->|動態加載| NextArea2[新區域2]
+    
+    NPCInteraction --> Relationship[關係發展]
+    Relationship --> SpecialQuest[特殊任務解鎖]
+    
+    PlayerInteract --> Collaboration[協作任務]
+    Collaboration --> SharedReward[共享獎勵]
+    
+    SideQuest --> Reward[獲得獎勵]
+    Reward --> MainHub
+    
+    NextArea1 --> NewNPCs1[新NPC互動]
+    NextArea2 --> NewNPCs2[新NPC互動]
+    
+    subgraph 後台動態加載
+        DynamicLoad[區域內容動態載入]
+        ResourcePredict[預測可能路徑]
+        BackgroundSync[背景同步玩家狀態]
+    end
+    
+    MainHub -.-> DynamicLoad
+    Decision -.-> ResourcePredict
+    PlayerInteract -.-> BackgroundSync
